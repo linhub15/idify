@@ -1,12 +1,10 @@
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-
 function App() {
 
   return (
     <>
     <form>
        todo: Ian will build a form here
+       <span>Name: </span><input type='text'/>
     </form>
     </>
   )
