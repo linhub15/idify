@@ -11,3 +11,16 @@ export const cameraFunc = (webcam) => {
       });
   }
 };
+
+export const takePhoto = (video, canvas) => {
+  video = video.current;
+  canvas = canvas.current;
+  if (video && canvas) {
+    const context = canvas.getContext("2d");
+    canvas.style.display = "block";
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    const imageURL = canvas.toDataURL("image/png");
+    console.log(imageURL);
+  }
+};
