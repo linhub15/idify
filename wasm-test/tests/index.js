@@ -1,3 +1,3 @@
 import assert from "assert";
-import { hello } from "../build/debug.js";
-assert.strictEqual(!!hello(), true);
+import { get_data } from "../build/debug.js";
+assert.strictEqual(!!get_data(), true);
