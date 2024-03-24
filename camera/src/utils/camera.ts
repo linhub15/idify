@@ -1,10 +1,10 @@
-export const cameraFunc = (webcam) => {
+export const enableCamera = (video) => {
   if (navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices
       .getUserMedia({ video: true })
       .then((stream) => {
-        if (!webcam) return;
-        webcam ? (webcam.current.srcObject = stream) : null;
+        if (!video) return;
+        video ? (video.current.srcObject = stream) : null;
       })
       .catch((err) => {
         console.log(err);
@@ -21,6 +21,8 @@ export const takePhoto = (video, canvas) => {
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
     const imageURL = canvas.toDataURL("image/png");
-    console.log(imageURL);
+    const blob = canvas.toBlob((blob: Blob) => {
+      console.log(blob);
+    });
   }
 };
