@@ -25,6 +25,7 @@ export const takePhoto = async (video, canvas) => {
     //   return blob;
     // });
     const blob = await new Promise((resolve) => canvas.toBlob(resolve));
+
     return blob;
   }
 };
