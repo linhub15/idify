@@ -20,10 +20,34 @@ sex: "M" | "F" | "X"
 
 ## OCR API
     
-```
+```bash
 curl -X 'POST' \
   'http://127.0.0.1:8000/upload-image/' \
   -H 'accept: application/json' \
   -H 'Content-Type: multipart/form-data' \
   -F 'file=@/Users/habib/Documents/idify/pysrc/img/high_contrast.jpeg;type=image/jpeg'
+```
+
+Sample Response:
+```json
+{
+  "message": "Image received and processed!",
+  "data": {
+    "license_number": "134711-320",
+    "first_name": "Sam",
+    "last_name": "SAMPLE",
+    "street_address": "24 My Place Street",
+    "post_code": "T5J 2M6",
+    "city": "Anywhere",
+    "province": "Alberta",
+    "country": "Canada",
+    "issue_date": "17 MAY 2018",
+    "date_of_birth": "20 NOV 1971",
+    "sex":"M",
+    "eye_color":"Brown",
+    "hair_color":"Brown",
+    "height":"182 cm",
+    "weight":"83 kg"
+    }
+}
 ```
