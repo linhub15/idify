@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { enableCamera, takePhoto, submitImage } from "../utils/camera";
+import { enableCamera, takePhoto, getBlob } from "../utils/camera";
 
 export const Idify = () => {
   const videoRef = useRef(null);
@@ -9,12 +9,15 @@ export const Idify = () => {
   const [isScreenshot, setIsScreenshot] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(false);
 
   return (
-    <div className="flex align-center justify-center">
+    <div className="flex flex-col items-center justify-center mx-auto">
       <dialog
         className={
-          dialogOpen ? "flex flex-col justify-center items-center" : "hidden"
+          dialogOpen
+            ? "flex flex-col justify-center items-center absolute mx-auto"
+            : "hidden"
         }
         open={dialogOpen}
       >
@@ -29,7 +32,7 @@ export const Idify = () => {
         )}
         {isSubmitting ? (
           <div className=" flex w-[640px] h-[480px] items-center justify-center">
-            <p>Submission Loading Spinner</p>
+            <p>Submission Loading - add Spinner</p>
           </div>
         ) : (
           <canvas
@@ -42,11 +45,10 @@ export const Idify = () => {
           {!isScreenshot && (
             <button
               className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-4"
-              onClick={() => {
-                if (!isScreenshot) {
-                  setIsScreenshot(true);
-                  takePhoto(videoRef, canvasRef);
-                }
+              onClick={(e) => {
+                e.preventDefault();
+                setIsScreenshot(true);
+                takePhoto(videoRef, canvasRef);
               }}
             >
               capture
@@ -56,9 +58,37 @@ export const Idify = () => {
           {isScreenshot && (
             <button
               className="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded m-4"
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 setIsSubmitting(true);
-                submitImage(canvasRef);
+                getBlob(canvasRef).then((blob) => {
+                  // console.log(blob);
+                  const form = new FormData();
+                  form.append("file", blob);
+
+                  fetch(
+                    "https://idify-63022b8d6788.herokuapp.com/upload-image/",
+                    {
+                      method: "POST",
+                      // headers: {
+                      //   accept: "application/json",
+                      //   // "Content-Type": "multipart/form-data",
+                      //   // "Access-Control-Allow-Headers": "Content-Type",
+                      //   // "Access-Control-Allow-Origin": "*",
+                      //   // "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+                      // },
+                      body: form,
+                    }
+                  )
+                    .then((response) => response.json)
+                    .then((data) => console.log("data", data))
+                    .catch((err) => {
+                      setIsSubmitting(false);
+                      setError(true);
+                      setDialogOpen(false);
+                    });
+                });
+                // imageToServer();
               }}
             >
               submit
@@ -73,11 +103,15 @@ export const Idify = () => {
           e.preventDefault();
           enableCamera(videoRef);
           // setIsCameraOn(true);
+
           setDialogOpen(true);
         }}
       >
         IDify
       </button>
+      {error && (
+        <p className="text-red-500">There was an error uploading your image</p>
+      )}
     </div>
   );
 };

@@ -31,28 +31,39 @@ export const takePhoto = async (video, canvas) => {
   }
 };
 
-export const submitImage = (canvas) => {
+export const getBlob = async (canvas) => {
   if (!canvas) return;
   canvas = canvas.current;
-
-  canvas.toBlob((blob: Blob) => {
-    console.log(blob);
-    const form = new FormData();
-    form.append("file", blob);
-    try {
-      fetch("https://idify-63022b8d6788.herokuapp.com/upload-image/", {
-        method: "POST",
-        headers: {
-          accept: "application/json",
-          // "Content-Type": "multipart/form-data",
-        },
-        body: form,
-      })
-        .then((response) => response.json)
-        .then((data) => console.log(data))
-        .catch((error) => console.log(error));
-    } catch (error) {
-      console.log(error);
-    }
-  }, "image/jpeg");
+  const blob = await new Promise((resolve) =>
+    canvas.toBlob(resolve, "image/jpeg")
+  );
+  return blob;
 };
+
+// export const submitImage = (canvas) => {
+//   if (!canvas) return;
+//   canvas = canvas.current;
+
+//   return canvas.toBlob((blob: Blob) => {
+//     console.log("blob", blob);
+//     const form = new FormData();
+//     form.append("file", blob);
+//     try {
+//       fetch("https://idify-63022b8d6788.herokuapp.com/upload-image/", {
+//         method: "POST",
+//         // headers: {
+//         //   accept: "application/json",
+//         //   // "Content-Type": "multipart/form-data",
+//         //   // "Access-Control-Allow-Headers": "Content-Type",
+//         //   // "Access-Control-Allow-Origin": "*",
+//         //   // "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
+//         // },
+//         body: form,
+//       })
+//         .then((response) => response.json)
+//         .then((data) => console.log("data", data));
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   }, "image/jpeg");
+// };
