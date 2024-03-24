@@ -1,11 +1,21 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
 import madi_verify_stepper from "../assets/imgs/madi_verify_stepper.png";
+import { TestAutofillBtn } from "../components/TestAutofill";
+import { License } from "../types/license";
+import { useState } from "react";
 
 export const Route = createLazyFileRoute("/madi_verify")({
   component: MadiVerify,
 });
 
 function MadiVerify() {
+  const [licenseNumber, setLicenseNumber] = useState({ a: "", b: "" });
+
+  const fill = (data: License) => {
+    const split = data.license_number.split("-");
+    setLicenseNumber({ a: split[0], b: split[1] });
+  };
+
   return (
     <div className="bg-white font-acumin">
       <form className="mx-auto max-w-2xl">
@@ -23,6 +33,7 @@ function MadiVerify() {
           <span className="font-semibold">EXACTLY</span>{" "}
           as it appears on your ID.
         </p>
+        <TestAutofillBtn onDataReceived={fill} />
         <div className="py-2">
           <label className="font-semibold text-gray-800">
             No (Licence or ID number)
@@ -31,11 +42,13 @@ function MadiVerify() {
             <input
               className="rounded w-20 p-2 border border-slate-300"
               type="text"
+              value={licenseNumber.a}
             />
             <span className="px-2">-</span>
             <input
               className="rounded w-20 p-2 border border-slate-300"
               type="text"
+              value={licenseNumber.b}
             />
           </div>
           <div className="text-xs text-gray-800">
