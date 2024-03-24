@@ -8,10 +8,7 @@ export const Idify = () => {
   const [isCameraOn, setIsCameraOn] = useState(false);
   const [isScreenshot, setIsScreenshot] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
-
-  const getImageBlob = async () => {
-    return await takePhoto(videoRef, canvasRef);
-  };
+  // const [isSubmitting, setIsSubmitting] = useState(false);
 
   return (
     <div>
