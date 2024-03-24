@@ -34,11 +34,21 @@ export const takePhoto = async (video, canvas) => {
 export const submitImage = (canvas) => {
   canvas = canvas.current;
 
-  const imageURL = canvas.toDataURL("image/png");
-  canvas.toBlob((blob) => {
+  canvas.toBlob((blob: Blob) => {
     console.log(blob);
-
-    // make post req to server
+    const form = new FormData();
+    form.append("file", blob);
+    try {
+      fetch("https://idify-63022b8d6788.herokuapp.com/upload-image/", {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "multipart/form-data",
+        },
+        body: form,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   });
-  console.log(imageURL);
 };

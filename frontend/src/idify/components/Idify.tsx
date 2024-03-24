@@ -8,7 +8,7 @@ export const Idify = () => {
   // const [isCameraOn, setIsCameraOn] = useState(false);
   const [isScreenshot, setIsScreenshot] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
-  // const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   return (
     <div>
@@ -27,10 +27,16 @@ export const Idify = () => {
             autoPlay
           ></video>
         )}
-        <canvas
-          className={isScreenshot ? "w-[640px] h-[480px]" : "hidden"}
-          ref={canvasRef}
-        ></canvas>
+        {isSubmitting ? (
+          <div className=" flex w-[640px] h-[480px] items-center justify-center">
+            <p>Submission Loading Spinner</p>
+          </div>
+        ) : (
+          <canvas
+            className={isScreenshot ? "w-[640px] h-[480px]" : "hidden"}
+            ref={canvasRef}
+          ></canvas>
+        )}
 
         <div className="flex flex-row space-between">
           {!isScreenshot && (
@@ -51,6 +57,7 @@ export const Idify = () => {
             <button
               className="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded m-4"
               onClick={() => {
+                setIsSubmitting(true);
                 submitImage(canvasRef);
               }}
             >
