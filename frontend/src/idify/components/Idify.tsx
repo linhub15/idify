@@ -5,7 +5,7 @@ export const Idify = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
 
-  const [isCameraOn, setIsCameraOn] = useState(false);
+  // const [isCameraOn, setIsCameraOn] = useState(false);
   const [isScreenshot, setIsScreenshot] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   // const [isSubmitting, setIsSubmitting] = useState(false);
@@ -65,7 +65,7 @@ export const Idify = () => {
         onClick={(e) => {
           e.preventDefault();
           enableCamera(videoRef);
-          setIsCameraOn(true);
+          // setIsCameraOn(true);
           setDialogOpen(true);
         }}
       >
