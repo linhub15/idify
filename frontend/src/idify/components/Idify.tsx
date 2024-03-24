@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { enableCamera, takePhoto } from "../utils/camera";
+import { enableCamera, takePhoto, submitImage } from "../utils/camera";
 
 export const Idify = () => {
   const videoRef = useRef(null);
@@ -34,18 +34,31 @@ export const Idify = () => {
           // height="480"
         ></canvas>
         {isCameraOn ? (
-          <button
-            className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-4"
-            onClick={() => {
-              setIsScreenshot(true);
-              // const imageBlob = getImageBlob();
-              const imageBlob = takePhoto(videoRef, canvasRef);
-
-              console.log("imageblob?", imageBlob);
-            }}
-          >
-            capture
-          </button>
+          <div className="flex flex-row space-between">
+            {!isScreenshot && (
+              <button
+                className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-4"
+                onClick={() => {
+                  if (!isScreenshot) {
+                    setIsScreenshot(true);
+                    takePhoto(videoRef, canvasRef);
+                  }
+                }}
+              >
+                capture
+              </button>
+            )}
+            {isScreenshot && (
+              <button
+                className="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded m-4"
+                onClick={() => {
+                  submitImage(canvasRef);
+                }}
+              >
+                submit
+              </button>
+            )}
+          </div>
         ) : null}
       </dialog>
 
