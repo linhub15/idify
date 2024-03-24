@@ -2,151 +2,209 @@ import { useState } from "react";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import Header from "../components/Header";
 import { Idify } from "../idify/components/Idify";
+import { RadioGroup } from "@headlessui/react";
+
 export const Route = createLazyFileRoute("/license_form")({
   component: LicenseForm,
 });
 
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
 function LicenseForm() {
+  const genderOptions = [
+    {
+      name: "M (Male)",
+      value: "M",
+    },
+    {
+      name: "F (Female)",
+      value: "F",
+    },
+    {
+      name: "X (Unspecified)",
+      value: "X",
+    },
+  ];
+
   const license = {
-    given_name: "John",
+    first_name: "John",
+    middle_name: "",
     last_name: "Doe",
     address: "123 Fake St, Edmonton",
     license_number: "123456-789",
-    birthdate: new Date().toString(),
+    birthdate: new Date("1990-01-01"),
     gender: "M",
   };
 
-  const [given_name, setGivenName] = useState(license.given_name);
+  const [first_name, setFirstName] = useState(license.first_name);
+  const [middle_name, setMiddleName] = useState(license.first_name);
   const [last_name, setLastName] = useState(license.last_name);
-  const [address, setAddress] = useState(license.address);
-  const [license_number, setLicenseNumber] = useState(license.license_number);
-  const [birthdate, setBirthDate] = useState(license.birthdate);
+  const [birth_day, setBirthDay] = useState(
+    license.birthdate.getDate().toString()
+  );
+  const [birth_month, setBirthMonth] = useState(
+    license.birthdate.getMonth().toString()
+  );
+  const [birth_year, setBirthYear] = useState(
+    license.birthdate.getFullYear().toString()
+  );
   const [gender, setGender] = useState(license.gender);
 
   return (
     <div>
       <Header></Header>
-      <form className="bg-white max-w-md w-full mx-auto rounded-lg p-8">
-        <h3 className="text-center font-bold py-4">LICENSE FORM</h3>
-        <div>
-          <label
-            htmlFor="given-name"
-            className="block text-sm font-bold leading-6 text-gray-900"
-          >
-            Given Name
-          </label>
-          <div className="mt-2">
-            <input
-              type="text"
-              name="given-name"
-              id="given-name"
-              className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              value={given_name}
-              onChange={(event) => {
-                setGivenName(event.target.value);
-              }}
-            />
+      <div>
+        <form className="bg-white max-w-md w-full font-acumin mx-auto rounded-lg p-12 m-12">
+          <h1 className="text-center text-2xl font-bold py-4">
+            Update personal information
+          </h1>
+          <div className="py-2">
+            <label
+              htmlFor="first-name"
+              className="block text-sm font-bold leading-6 text-gray-900"
+            >
+              First Name
+            </label>
+            <div className="mt-2">
+              <input
+                type="text"
+                name="first-name"
+                id="first-name"
+                className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={first_name}
+                onChange={(event) => {
+                  setFirstName(event.target.value);
+                }}
+              />
+            </div>
           </div>
-        </div>
-        <div>
-          <label
-            htmlFor="family-name"
-            className="block text-sm font-bold leading-6 text-gray-900"
-          >
-            Last Name:
-          </label>
-          <div className="mt-2">
-            <input
-              type="text"
-              name="family-name"
-              id="family-name"
-              className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              value={last_name}
-              onChange={(event) => {
-                setLastName(event.target.value);
-              }}
-            />
+          <div>
+            <label
+              htmlFor="middle-name"
+              className="block text-sm font-bold leading-6 text-gray-900"
+            >
+              Middle Name(s) (optional)
+            </label>
+            <div className="mt-2">
+              <input
+                type="text"
+                name="middle-name"
+                id="middle-name"
+                className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={middle_name}
+                onChange={(event) => {
+                  setMiddleName(event.target.value);
+                }}
+              />
+            </div>
           </div>
-        </div>
-        <label
-          htmlFor="address"
-          className="block text-sm font-bold leading-6 text-gray-900"
-        >
-          Address:
-        </label>
-        <div className="mt-2">
-          <input
-            type="text"
-            name="address"
-            id="address"
-            className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            value={address}
-            onChange={(event) => {
-              setAddress(event.target.value);
-            }}
-          />
-        </div>
-        <label
-          htmlFor="license-number"
-          className="block text-sm font-bold leading-6 text-gray-900"
-        >
-          License Number:
-        </label>
-        <div className="mt-2">
-          <input
-            type="text"
-            name="license-number"
-            id="license-number"
-            className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            value={license_number}
-            onChange={(event) => {
-              setLicenseNumber(event.target.value);
-            }}
-          />
-        </div>
-        <div className="inline-block w-[45%] pl-0 p-4">
-          <label
-            htmlFor="birthdate"
-            className="block text-sm font-bold leading-6 text-gray-900"
-          >
-            Date Of Birth:
-          </label>
-          <div className="mt-2">
-            <input
-              type="text"
-              name="birthdate"
-              id="birthdate"
-              className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              value={birthdate}
-              onChange={(event) => {
-                setBirthDate(event.target.value);
-              }}
-            />
+          <div>
+            <label
+              htmlFor="last-name"
+              className="block text-sm font-bold leading-6 text-gray-900"
+            >
+              Last Name:
+            </label>
+            <div className="mt-2">
+              <input
+                type="text"
+                name="last-name"
+                id="last-name"
+                className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={last_name}
+                onChange={(event) => {
+                  setLastName(event.target.value);
+                }}
+              />
+            </div>
           </div>
-        </div>
-        <div className="inline-block w-[45%] px-2">
-          <label
-            htmlFor="gender"
-            className="block text-sm font-bold leading-6 text-gray-900"
-          >
-            Gender:
-          </label>
-          <div className="mt-2">
-            <input
-              type="text"
-              name="gender"
-              id="gender"
-              className="block w-full rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              value={gender}
-              onChange={(event) => {
-                setGender(event.target.value);
-              }}
-            />
+          <div className="inline-block w-full pl-0 p-4">
+            <label
+              htmlFor="birthdate"
+              className="block text-sm font-bold leading-6 text-gray-900"
+            >
+              DOB (Date Of Birth)
+            </label>
+            <div className="mt-2">
+              <input
+                type="number"
+                name="birth-day"
+                id="birth-day"
+                className="inline-block w-1/4 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                placeholder="DD"
+                value={birth_day}
+                onChange={(event) => {
+                  setBirthDay(event.target.value);
+                }}
+              />
+              <input
+                type="text"
+                name="month"
+                id="month"
+                className="inline-block w-1/4 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                placeholder="MM"
+                value={birth_month}
+                onChange={(event) => {
+                  setBirthMonth(event.target.value);
+                }}
+              />
+              <input
+                type="number"
+                min={1900}
+                max={2024}
+                name="year"
+                id="year"
+                placeholder="YYYY"
+                className="inline-block w-1/4 rounded-md border-0 p-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                value={birth_year}
+                onChange={(event) => {
+                  setBirthYear(event.target.value);
+                }}
+              />
+            </div>
           </div>
-        </div>
-      </form>
+          <div className="w-full">
+            <div className="flex items-center justify-between">
+              <h2 className="text-sm font-medium leading-6 text-gray-900">
+                Gender
+              </h2>
+            </div>
 
-      <Idify />
+            <RadioGroup
+              value={gender}
+              onChange={setGender}
+              className="mt-2 w-full"
+            >
+              <RadioGroup.Label className="sr-only">Sex</RadioGroup.Label>
+              <div className="grid grid-cols-3 gap-3">
+                {genderOptions.map((option) => (
+                  <RadioGroup.Option
+                    key={option.name}
+                    value={option.value}
+                    className={({ active, checked }) =>
+                      classNames(
+                        "cursor-pointer focus:outline-none",
+                        active ? "ring-2 ring-indigo-600 ring-offset-2" : "",
+                        checked
+                          ? "bg-indigo-600 text-white hover:bg-indigo-500"
+                          : "ring-1 ring-inset ring-gray-300 bg-white text-gray-900 hover:bg-gray-50",
+                        "flex items-center justify-center rounded-md py-3 px-3 text-sm font-semibold uppercase sm:flex-1"
+                      )
+                    }
+                  >
+                    <RadioGroup.Label as="span" className="text-center">
+                      {option.name}
+                    </RadioGroup.Label>
+                  </RadioGroup.Option>
+                ))}
+              </div>
+            </RadioGroup>
+          </div>
+        </form>
+        <Idify />
+      </div>
     </div>
   );
 }
