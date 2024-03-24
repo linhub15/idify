@@ -7,7 +7,7 @@ function classNames(...classes: string[]) {
 export function Nav() {
   const links = [
     { to: "/", label: "Home" },
-    { to: "/license_form", label: "License Form" },
+    { to: "/license_form", label: "Personal Information" },
     { to: "/madi_verify", label: "Madi Verify" },
   ];
   return (
@@ -25,7 +25,7 @@ export function Nav() {
                     to={link.to}
                     className={classNames(
                       "text-gray-400 hover:text-white hover:bg-gray-800 [&.active]:text-white [&.active]:underline",
-                      "group flex gap-x-3 rounded-md p-2 leading-6 font-semibold",
+                      "group flex gap-x-3 rounded-md p-2 leading-6 font-semibold"
                     )}
                   >
                     <span className="truncate">{link.label}</span>
