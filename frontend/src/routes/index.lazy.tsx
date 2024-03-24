@@ -11,7 +11,7 @@ function Index() {
       <Header />
       <h2>Team Members</h2>
       <ul>
-        <li>Devin</li>
+        <li>Devin MacGillivray</li>
         <li>Ian Baguio</li>
         <li>Ricky Zhang</li>
         <li>Habib Rahman</li>
