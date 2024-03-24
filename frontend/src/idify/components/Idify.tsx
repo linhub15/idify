@@ -31,7 +31,7 @@ export const Idify = () => {
         )}
         {isSubmitting ? (
           <div className=" flex w-[640px] h-[480px] items-center justify-center">
-            <p>Submission Loading - add Spinner</p>
+            <p>Submission Loading...</p>
           </div>
         ) : (
           <canvas
@@ -79,19 +79,21 @@ export const Idify = () => {
                       body: form,
                     }
                   )
-                    .then((response) => response.json)
-                    .then((data) => console.log("data", data))
+                    .then((response) => response.json())
+                    .then((data) => {
+                      console.log("data", data.data);
+                    })
                     .catch((err) => {
+                      console.log(err);
                       setIsSubmitting(false);
                       setError(true);
                       setIsScreenshot(false);
                       setDialogOpen(false);
                     });
                 });
-                // imageToServer();
               }}
             >
-              submit
+              {isSubmitting ? "..." : "submit"}
             </button>
           )}
         </div>
@@ -102,7 +104,6 @@ export const Idify = () => {
         onClick={(e) => {
           e.preventDefault();
           enableCamera(videoRef);
-          // setIsCameraOn(true);
 
           setDialogOpen(true);
         }}
