@@ -20,13 +20,6 @@ export const takePhoto = async (video, canvas) => {
     canvas.style.display = "block";
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    // const imageURL = canvas.toDataURL("image/png");
-    // const blob = await canvas.toBlob((blob: Blob) => {
-    //   return blob;
-    // });
-    // const blob = await new Promise((resolve) => canvas.toBlob(resolve));
-
-    // return blob;
     return;
   }
 };
