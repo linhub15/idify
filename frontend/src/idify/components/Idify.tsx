@@ -1,9 +1,12 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { enableCamera, takePhoto, getBlob } from "../utils/camera";
+import { licenceContext } from "../context/IdContext";
 
 export const Idify = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
+
+  const { setLicenceData } = useContext(licenceContext);
 
   const [isScreenshot, setIsScreenshot] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -77,11 +80,11 @@ export const Idify = () => {
                   )
                     .then((response) => response.json())
                     .then((data) => {
-                      console.log("data", data.data);
                       setIsSubmitting(false);
                       setSuccess(true);
                       setIsScreenshot(false);
                       setDialogOpen(false);
+                      setLicenceData(data.data);
                     })
                     .catch((err) => {
                       console.log(err);
@@ -110,7 +113,7 @@ export const Idify = () => {
       >
         IDify
       </button>
-      {error && (
+      {error && !success && (
         <p className="text-red-500">There was an error uploading your image</p>
       )}
       {success && <p className="text-green-600">Information Recieved</p>}
