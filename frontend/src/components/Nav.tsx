@@ -8,6 +8,7 @@ export function Nav() {
   const links = [
     { to: "/", label: "Home" },
     { to: "/license_form", label: "License Form" },
+    { to: "/madi_verify", label: "Madi Verify" },
   ];
   return (
     <div className="flex grow gap-y-5 overflow-y-auto bg-gray-900 px-6">
@@ -23,7 +24,7 @@ export function Nav() {
                   <Link
                     to={link.to}
                     className={classNames(
-                      "text-gray-400 hover:text-white hover:bg-gray-800",
+                      "text-gray-400 hover:text-white hover:bg-gray-800 [&.active]:text-white [&.active]:underline",
                       "group flex gap-x-3 rounded-md p-2 leading-6 font-semibold",
                     )}
                   >

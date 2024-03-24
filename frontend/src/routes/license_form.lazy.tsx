@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import Header from "../components/Header";
-
+import { Idify } from "../idify/components/Idify";
 export const Route = createLazyFileRoute("/license_form")({
   component: LicenseForm,
 });
@@ -27,7 +27,7 @@ function LicenseForm() {
     <div>
       <Header></Header>
       <form className="bg-white max-w-md w-full mx-auto rounded-lg p-8">
-      <h3 className="text-center font-bold py-4">LICENSE FORM</h3>
+        <h3 className="text-center font-bold py-4">LICENSE FORM</h3>
         <div>
           <label
             htmlFor="given-name"
@@ -145,6 +145,8 @@ function LicenseForm() {
           </div>
         </div>
       </form>
+
+      <Idify />
     </div>
   );
 }
