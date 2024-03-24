@@ -9,13 +9,14 @@ export const Idify = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   return (
     <div className="flex flex-col items-center justify-center mx-auto">
       <dialog
         className={
           dialogOpen
-            ? "flex flex-col justify-center items-center absolute mx-auto"
+            ? "flex flex-col justify-center items-center absolute top-4 mx-auto bg-zinc-200"
             : "hidden"
         }
         open={dialogOpen}
@@ -62,6 +63,7 @@ export const Idify = () => {
                 setIsSubmitting(true);
                 getBlob(canvasRef).then((blob) => {
                   // console.log(blob);
+                  if (!blob) return;
                   const form = new FormData();
                   form.append("file", blob);
 
@@ -69,19 +71,17 @@ export const Idify = () => {
                     "https://idify-63022b8d6788.herokuapp.com/upload-image/",
                     {
                       method: "POST",
-                      // headers: {
-                      //   accept: "application/json",
-                      //   // "Content-Type": "multipart/form-data",
-                      //   // "Access-Control-Allow-Headers": "Content-Type",
-                      //   // "Access-Control-Allow-Origin": "*",
-                      //   // "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
-                      // },
+
                       body: form,
                     }
                   )
                     .then((response) => response.json())
                     .then((data) => {
                       console.log("data", data.data);
+                      setIsSubmitting(false);
+                      setSuccess(true);
+                      setIsScreenshot(false);
+                      setDialogOpen(false);
                     })
                     .catch((err) => {
                       console.log(err);
@@ -113,6 +113,7 @@ export const Idify = () => {
       {error && (
         <p className="text-red-500">There was an error uploading your image</p>
       )}
+      {success && <p className="text-green-600">Information Recieved</p>}
     </div>
   );
 };
