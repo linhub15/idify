@@ -3,8 +3,9 @@ from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 import io
 from PIL import Image
-import base64
 from pysrc.openai_helper import extract_user_details
+import time
+import os
 
 app = FastAPI()
 
@@ -37,20 +38,26 @@ async def create_upload_file(file: UploadFile = File(...)):
     try:
         # Read the file content
         file_content = await file.read()
-        
-        # Optionally, you might want to verify if the uploaded file is a valid image.
-        # You can do this by trying to open it with PIL.
-        # Resetting the file pointer is necessary here because 'file.read()' above would have exhausted the stream.
+
+        # Convert file content to an Image to verify and potentially convert it
         try:
-            Image.open(io.BytesIO(file_content)).verify()
+            img = Image.open(io.BytesIO(file_content))
+            img.verify()  # This verifies the header but does not load the file, so it's fast
+            img_format = 'JPEG'  # Define the format you want to save as
         except Exception:
             return JSONResponse(content={"message": "Invalid image format!"}, status_code=400)
+
+        file_name = str(int(time.time()))
         
-        # Encode the file content to base64
-        base64image = base64.b64encode(file_content).decode('utf-8')
+        # Reopen the image for saving since verify() doesn't load the image
+        img = Image.open(io.BytesIO(file_content))
+        img.save(f"img/{file_name}.jpeg", format=img_format)  # Save as JPEG
         
         # Pass the base64 string to your function
-        response = extract_user_details(base64image)
+        response = extract_user_details(file_name)
+        
+        # delete the image after processing
+        os.remove(f"img/{file_name}.jpeg")
         
         # Return a response including the data from 'extract_user_details'
         return JSONResponse(content={"message": "Image received and processed!", "data": response}, status_code=200)
