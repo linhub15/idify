@@ -1,0 +1,28 @@
+name: deploy-site
+
+on:
+  workflow_dispatch:
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    name: prod-deploy frontend
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-node@v4
+
+    - uses: pnpm/action-setup@v3
+      with:
+        version: 8
+
+    - run: pnpm install --prefix frontend
+
+    - run: pnpm run --prefix frontend build
+
+    - uses: cloudflare/wrangler-action@v3
+      with:
+        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        command: pages deploy frontend/dist --project-name=idify-govtech
