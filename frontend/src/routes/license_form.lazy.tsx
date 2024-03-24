@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import Header from "../components/Header";
 import { Idify } from "../idify/components/Idify";
 import { RadioGroup } from "@headlessui/react";
+
+import { licenceContext } from "../idify/context/IdContext";
 
 export const Route = createLazyFileRoute("/license_form")({
   component: LicenseForm,
@@ -13,6 +15,13 @@ function classNames(...classes) {
 }
 
 function LicenseForm() {
+  const { licenceData } = useContext(licenceContext);
+
+  // useffect for confirming data coming through to form
+  useEffect(() => {
+    console.log(licenceData);
+  }, [licenceData]);
+
   const genderOptions = [
     {
       name: "M (Male)",
