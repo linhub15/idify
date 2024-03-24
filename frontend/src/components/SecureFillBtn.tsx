@@ -5,7 +5,7 @@ type Props = {
   onDataReceived: (data: License) => void;
 };
 
-export function TestAutofillBtn(props: Props) {
+export function SecureFillBtn(props: Props) {
   const [isLoading, setIsLoading] = useState(false);
 
   const idifyImage = async () => {

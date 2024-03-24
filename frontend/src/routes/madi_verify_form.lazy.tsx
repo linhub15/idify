@@ -1,10 +1,10 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
 import madi_verify_stepper from "../assets/imgs/madi_verify_stepper.png";
-import { TestAutofillBtn } from "../components/TestAutofill";
+import { SecureFillBtn } from "../components/SecureFillBtn";
 import { License } from "../types/license";
 import { useState } from "react";
 
-export const Route = createLazyFileRoute("/madi_verify")({
+export const Route = createLazyFileRoute("/madi_verify_form")({
   component: MadiVerify,
 });
 
@@ -18,7 +18,7 @@ function MadiVerify() {
 
   return (
     <div className="bg-white font-acumin">
-      <form className="mx-auto max-w-2xl">
+      <form className="px-4 md:mx-auto max-w-2xl">
         <img
           className="py-6"
           src={madi_verify_stepper}
@@ -33,7 +33,7 @@ function MadiVerify() {
           <span className="font-semibold">EXACTLY</span>{" "}
           as it appears on your ID.
         </p>
-        <TestAutofillBtn onDataReceived={fill} />
+        <SecureFillBtn onDataReceived={fill} />
         <div className="py-2">
           <label className="font-semibold text-gray-800">
             No (Licence or ID number)
@@ -63,8 +63,10 @@ function MadiVerify() {
           </label>
           <div className="py-2">
             <input
-              className="rounded w-full p-2 border border-slate-300"
+              className="rounded w-full p-2 border border-slate-300 disabled:opacity-50"
               type="text"
+              value="Disabled for demo"
+              disabled
             />
           </div>
           <div className="text-xs text-gray-800">

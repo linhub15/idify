@@ -16,16 +16,18 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
-const MadiverifyLazyImport = createFileRoute('/madi_verify')()
+const MadiverifyformLazyImport = createFileRoute('/madi_verify_form')()
 const LicenseformLazyImport = createFileRoute('/license_form')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
 
-const MadiverifyLazyRoute = MadiverifyLazyImport.update({
-  path: '/madi_verify',
+const MadiverifyformLazyRoute = MadiverifyformLazyImport.update({
+  path: '/madi_verify_form',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/madi_verify.lazy').then((d) => d.Route))
+} as any).lazy(() =>
+  import('./routes/madi_verify_form.lazy').then((d) => d.Route),
+)
 
 const LicenseformLazyRoute = LicenseformLazyImport.update({
   path: '/license_form',
@@ -49,8 +51,8 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LicenseformLazyImport
       parentRoute: typeof rootRoute
     }
-    '/madi_verify': {
-      preLoaderRoute: typeof MadiverifyLazyImport
+    '/madi_verify_form': {
+      preLoaderRoute: typeof MadiverifyformLazyImport
       parentRoute: typeof rootRoute
     }
   }
@@ -61,7 +63,7 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   IndexLazyRoute,
   LicenseformLazyRoute,
-  MadiverifyLazyRoute,
+  MadiverifyformLazyRoute,
 ])
 
 /* prettier-ignore-end */
