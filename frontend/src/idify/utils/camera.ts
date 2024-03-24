@@ -32,6 +32,7 @@ export const takePhoto = async (video, canvas) => {
 };
 
 export const submitImage = (canvas) => {
+  if (!canvas) return;
   canvas = canvas.current;
 
   canvas.toBlob((blob: Blob) => {
@@ -43,12 +44,12 @@ export const submitImage = (canvas) => {
         method: "POST",
         headers: {
           accept: "application/json",
-          "Content-Type": "multipart/form-data",
+          // "Content-Type": "multipart/form-data",
         },
         body: form,
       });
     } catch (error) {
       console.log(error);
     }
-  });
+  }, "image/jpeg");
 };
