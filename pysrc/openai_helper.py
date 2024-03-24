@@ -4,7 +4,7 @@ import instructor
 import requests
 from pydantic.main import BaseModel
 from load_env import openai_api_key
-from UserDetails import UserDetail
+from pysrc.UserDetails import UserDetail
 
 def encode_image(image_path):
     with open(image_path, "rb") as image_file:

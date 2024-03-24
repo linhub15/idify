@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse
 import io
 from PIL import Image
 import base64
-from openai_helper import extract_user_details
+from pysrc.openai_helper import extract_user_details
 
 app = FastAPI()
 
