@@ -3,7 +3,7 @@ from openai import OpenAI
 import instructor
 import requests
 from pydantic.main import BaseModel
-from load_env import openai_api_key
+from pysrc.load_env import openai_api_key
 from pysrc.UserDetails import UserDetail
 
 def encode_image(image_path):
