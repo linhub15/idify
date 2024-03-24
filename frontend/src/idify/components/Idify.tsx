@@ -5,7 +5,6 @@ export const Idify = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
 
-  // const [isCameraOn, setIsCameraOn] = useState(false);
   const [isScreenshot, setIsScreenshot] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -23,7 +22,7 @@ export const Idify = () => {
       >
         {/* screenshot not yet taken show capture button */}
 
-        {isScreenshot === false && (
+        {isScreenshot === false && dialogOpen && (
           <video
             className="w-[640px] h-[480px]"
             ref={videoRef}
@@ -85,6 +84,7 @@ export const Idify = () => {
                     .catch((err) => {
                       setIsSubmitting(false);
                       setError(true);
+                      setIsScreenshot(false);
                       setDialogOpen(false);
                     });
                 });
