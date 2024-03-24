@@ -108,14 +108,16 @@ function Team() {
           {people.map((person) => (
             <li key={person.name}>
               <div className="flex items-center gap-x-6">
-                {person.imageUrl ? (
-                  <img
-                    className="h-16 w-16 rounded-full"
-                    src={person.imageUrl}
-                  />
-                ) : (
-                  <UserCircleIcon className="h-16 w-16 rounded-full" />
-                )}
+                {person.imageUrl
+                  ? (
+                    <img
+                      className="size-24 rounded-full"
+                      src={person.imageUrl}
+                    />
+                  )
+                  : (
+                    <UserCircleIcon className="size-24 rounded-full stroke-slate-400 fill-gray-50" />
+                  )}
                 <div>
                   <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">
                     {person.name}

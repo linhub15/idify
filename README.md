@@ -2,9 +2,19 @@
 
 Automatically fillup government forms with your id card.
 
-Discord 
-https://discord.gg/ZCH3z8bk
+- Coms https://discord.gg/ZCH3z8bk
+- Site https://idify-govtech.pages.dev/
+- `Api` https://idify-63022b8d6788.herokuapp.com/upload-image/
 
+
+## local frontend server (Node)
+
+```
+# npm (default)
+npm run --prefix frontend dev
+# or pnpm
+pnpm run --prefix frontend dev
+```
 
 ## Form fields
 
@@ -17,18 +27,18 @@ license_number: NNNNNN-NNN
 sex: "M" | "F" | "X"
 ```
 
-
 ## OCR API
-    
+
 ```bash
 curl -X 'POST' \
   'http://127.0.0.1:8000/upload-image/' \
   -H 'accept: application/json' \
   -H 'Content-Type: multipart/form-data' \
-  -F 'file=@/Users/habib/Documents/idify/pysrc/img/high_contrast.jpeg;type=image/jpeg'
+  -F 'file=@/Users/habib/Documents/idify/pysrc/img/high_contrast.jpeg;type=image/jpeg'  
 ```
 
 Sample Response:
+
 ```json
 {
   "message": "Image received and processed!",
@@ -43,11 +53,11 @@ Sample Response:
     "country": "Canada",
     "issue_date": "17 MAY 2018",
     "date_of_birth": "20 NOV 1971",
-    "sex":"M",
-    "eye_color":"Brown",
-    "hair_color":"Brown",
-    "height":"182 cm",
-    "weight":"83 kg"
-    }
+    "sex": "M",
+    "eye_color": "Brown",
+    "hair_color": "Brown",
+    "height": "182 cm",
+    "weight": "83 kg"
+  }
 }
 ```
