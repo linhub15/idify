@@ -18,48 +18,46 @@ export const Idify = () => {
         }
         open={dialogOpen}
       >
+        {/* screenshot not yet taken show capture button */}
+
         {isScreenshot === false && (
           <video
-            // id="webcam"
+            className="w-[640px] h-[480px]"
             ref={videoRef}
-            width="640"
-            height="480"
             autoPlay
           ></video>
         )}
         <canvas
           className={isScreenshot ? "w-[640px] h-[480px]" : "hidden"}
           ref={canvasRef}
-          // width="640"
-          // height="480"
         ></canvas>
-        {isCameraOn ? (
-          <div className="flex flex-row space-between">
-            {!isScreenshot && (
-              <button
-                className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-4"
-                onClick={() => {
-                  if (!isScreenshot) {
-                    setIsScreenshot(true);
-                    takePhoto(videoRef, canvasRef);
-                  }
-                }}
-              >
-                capture
-              </button>
-            )}
-            {isScreenshot && (
-              <button
-                className="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded m-4"
-                onClick={() => {
-                  submitImage(canvasRef);
-                }}
-              >
-                submit
-              </button>
-            )}
-          </div>
-        ) : null}
+
+        <div className="flex flex-row space-between">
+          {!isScreenshot && (
+            <button
+              className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-4"
+              onClick={() => {
+                if (!isScreenshot) {
+                  setIsScreenshot(true);
+                  takePhoto(videoRef, canvasRef);
+                }
+              }}
+            >
+              capture
+            </button>
+          )}
+          {/* screenshot true enable submit button */}
+          {isScreenshot && (
+            <button
+              className="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded m-4"
+              onClick={() => {
+                submitImage(canvasRef);
+              }}
+            >
+              submit
+            </button>
+          )}
+        </div>
       </dialog>
 
       <button
