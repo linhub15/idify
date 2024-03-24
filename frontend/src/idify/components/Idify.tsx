@@ -16,7 +16,7 @@ export const Idify = () => {
       <dialog
         className={
           dialogOpen
-            ? "flex flex-col justify-center items-center absolute top-4 mx-auto bg-zinc-200"
+            ? "flex flex-col justify-center items-center absolute top-4 bg-zinc-200"
             : "hidden"
         }
         open={dialogOpen}
@@ -25,18 +25,18 @@ export const Idify = () => {
 
         {isScreenshot === false && dialogOpen && (
           <video
-            className="w-[640px] h-[480px]"
+            className="h-[480px] w-[640px]"
             ref={videoRef}
             autoPlay
           ></video>
         )}
         {isSubmitting ? (
-          <div className=" flex w-[640px] h-[480px] items-center justify-center">
+          <div className=" flex h-[480px] w-[640px] items-center justify-center">
             <p>Submission Loading...</p>
           </div>
         ) : (
           <canvas
-            className={isScreenshot ? "w-[640px] h-[480px]" : "hidden"}
+            className={isScreenshot ? "h-[480px] w-[640px]" : "hidden"}
             ref={canvasRef}
           ></canvas>
         )}

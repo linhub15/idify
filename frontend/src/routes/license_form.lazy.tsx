@@ -202,8 +202,10 @@ function LicenseForm() {
               </div>
             </RadioGroup>
           </div>
+          <div className="mt-4">
+            <Idify />
+          </div>
         </form>
-        <Idify />
       </div>
     </div>
   );
