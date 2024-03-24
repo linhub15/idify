@@ -12,7 +12,6 @@ export const Camera = () => {
   return (
     <>
       <dialog open={dialogOpen}>
-        test
         {isScreenshot === false && (
           <video
             // id="webcam"
@@ -23,6 +22,7 @@ export const Camera = () => {
           ></video>
         )}
         <canvas ref={canvasRef} width="640" height="480"></canvas>
+
         {isCameraOn ? (
           <button
             onClick={() => {
