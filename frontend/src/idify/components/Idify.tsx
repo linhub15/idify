@@ -13,7 +13,9 @@ export const Idify = () => {
   return (
     <div>
       <dialog
-        className={dialogOpen ? "flex flex-col" : "hidden"}
+        className={
+          dialogOpen ? "flex flex-col justify-center items-center" : "hidden"
+        }
         open={dialogOpen}
       >
         {isScreenshot === false && (
