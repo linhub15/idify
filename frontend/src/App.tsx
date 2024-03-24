@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Header from "./Header";
+import { Idify } from "./idify/components/Idify";
 
 function App() {
   const license = {
@@ -141,6 +142,9 @@ function App() {
             </div>
           </div>
         </form>
+        <div className="text-center">
+          <Idify />
+        </div>
       </div>
     </>
   );
